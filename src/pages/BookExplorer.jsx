@@ -20,6 +20,7 @@ const BookExplorer = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [isBookDetailsLoading, setIsBookDetailsLoading] = useState(false);
   const [bookDetails, setBookDetails] = useState(null);
+  const [subjectNum, setSubjectNum] = useState(5);
 
   const resultsPerPage = 12;
 
@@ -129,6 +130,10 @@ const BookExplorer = () => {
     setBookDetails(null);
   };
 
+  const toggleSubjectsDisplay = () => {
+    setSubjectNum(subjectNum === 5 ? bookDetails.subjects.length : 5);
+  };
+
   const renderPagination = () => {
     const totalPages = Math.ceil(totalResults / resultsPerPage);
 
@@ -163,9 +168,9 @@ const BookExplorer = () => {
     );
   };
 
-  console.log("Current search term:", currentSearchTerm);
-  console.log("Page:", page);
-  console.log("Total results:", totalResults);
+  // console.log("Current search term:", currentSearchTerm);
+  // console.log("Page:", page);
+  // console.log("Total results:", totalResults);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -326,7 +331,7 @@ const BookExplorer = () => {
                           <strong>Subjects:</strong>
                           <div className="mt-1 flex flex-wrap gap-1">
                             {bookDetails.subjects
-                              .slice(0, 5)
+                              .slice(0, subjectNum)
                               .map((subject, index) => (
                                 <span
                                   key={index}
@@ -335,9 +340,26 @@ const BookExplorer = () => {
                                   {subject}
                                 </span>
                               ))}
-                            {bookDetails.subjects.length > 5 && (
-                              <span className="text-sm text-gray-500">
-                                +{bookDetails.subjects.length - 5} more
+                            {bookDetails.subjects.length > subjectNum && (
+                              <span
+                                className="text-sm text-gray-500 cursor-pointer hover:text-blue-500"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleSubjectsDisplay();
+                                }}
+                              >
+                                +{bookDetails.subjects.length - subjectNum} more
+                              </span>
+                            )}
+                            {subjectNum > 5 && (
+                              <span
+                                className="text-sm text-blue-500 cursor-pointer"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleSubjectsDisplay();
+                                }}
+                              >
+                                Show less
                               </span>
                             )}
                           </div>

@@ -39,7 +39,7 @@ const PostDetail = ({ user }) => {
     book_api_id: "",
     book_title: "",
     book_author: "",
-    post_author: user.email.split("@")[0],
+    post_author: user ? user.email.split("@")[0] : "",
   });
 
   useEffect(() => {

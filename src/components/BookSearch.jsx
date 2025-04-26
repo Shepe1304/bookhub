@@ -63,7 +63,7 @@ const BookSearch = ({ onSelectBook }) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Search for a book... (Remember to click enter!)"
+            placeholder="Search for a book... (Remember to click the magnifier!)"
             className="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button

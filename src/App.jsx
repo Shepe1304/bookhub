@@ -17,6 +17,7 @@ import { SignInPage, SignUpPage } from "./components/Auth";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import AuthCallback from "./pages/AuthCallback";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -25,6 +26,7 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       setLoading(true);
+
       try {
         const {
           data: { session },
@@ -74,7 +76,7 @@ function App() {
         .select("id")
         .limit(1);
 
-      console.log("Database connection verified");
+      // console.log("Database connection verified");
     } catch (error) {
       console.error("Error connecting to database:", error);
     }
@@ -123,6 +125,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+
+            <Route path="/auth/callback" element={<AuthCallback />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

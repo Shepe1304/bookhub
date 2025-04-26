@@ -34,8 +34,17 @@ export const SignIn = ({ onSignIn }) => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
+        // options: {
+        //   redirectTo: window.location.origin,
+        // },
+        // options: {
+        //   redirectTo: `${window.location.origin}/bookhub/`,
+        // },
         options: {
-          redirectTo: window.location.origin,
+          redirectTo:
+            window.location.hostname === "localhost"
+              ? "http://localhost:5173/bookhub/auth/callback"
+              : "https://shepe1304.github.io/bookhub/auth/callback",
         },
       });
 
@@ -185,8 +194,17 @@ export const SignUp = ({ onSignUp }) => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
+        // options: {
+        //   redirectTo: window.location.origin,
+        // },
+        // options: {
+        //   redirectTo: `${window.location.origin}/bookhub/`,
+        // },
         options: {
-          redirectTo: window.location.origin,
+          redirectTo:
+            window.location.hostname === "localhost"
+              ? "http://localhost:5173/bookhub/auth/callback"
+              : "https://shepe1304.github.io/bookhub/auth/callback",
         },
       });
 
@@ -338,6 +356,7 @@ export const SignUp = ({ onSignUp }) => {
 
 export const ProfileMenu = ({ user, onSignOut }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
@@ -346,6 +365,9 @@ export const ProfileMenu = ({ user, onSignOut }) => {
       if (onSignOut) onSignOut();
     } catch (err) {
       console.error("Error signing out:", err);
+    } finally {
+      await supabase.auth._removeSession();
+      navigate("/");
     }
   };
 
