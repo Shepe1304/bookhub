@@ -16,6 +16,7 @@ import About from "./pages/About";
 import { SignInPage, SignUpPage } from "./components/Auth";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -92,13 +93,16 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/bookhub">
       <div className="flex flex-col min-h-screen bg-gray-100">
         <Navbar user={user} />
         <main className="flex-grow py-6 px-4 sm:px-6">
           <Routes>
             <Route path="/" element={<Home user={user} />} />
-            <Route path="/profile" element={<Profile user={user} />} />
+            <Route
+              path="/profile"
+              element={<PrivateRoute element={<Profile user={user} />} />}
+            />
             <Route
               path="/book-explorer"
               element={<BookExplorer user={user} />}
@@ -119,6 +123,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
