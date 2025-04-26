@@ -84,6 +84,7 @@ Describe any challenges encountered while building the app:
 - Trying to implement authentication (sign in / sign up) with Supabase
 - Trying to learn from AI to write cleaner, best-practice code
 - Responsive Design with Tailwindcss
+- Protected Routes
 
 ## License
 
